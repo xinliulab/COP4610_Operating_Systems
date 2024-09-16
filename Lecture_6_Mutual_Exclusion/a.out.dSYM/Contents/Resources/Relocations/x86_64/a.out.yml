@@ -1,0 +1,13 @@
+---
+triple:          'x86_64-apple-darwin'
+binary-path:     a.out
+relocations:
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _xchg, symObjAddr: 0x0, symBinAddr: 0x100003E40, symSize: 0x20 }
+  - { offsetInCU: 0x3F, offset: 0x3F, size: 0x8, addend: 0x0, symName: _x, symObjAddr: 0xB88, symBinAddr: 0x100008000, symSize: 0x0 }
+  - { offsetInCU: 0x5B, offset: 0x5B, size: 0x8, addend: 0x0, symName: _lock, symObjAddr: 0xB90, symBinAddr: 0x100008008, symSize: 0x0 }
+  - { offsetInCU: 0x7A, offset: 0x7A, size: 0x8, addend: 0x0, symName: _xchg, symObjAddr: 0x0, symBinAddr: 0x100003E40, symSize: 0x20 }
+  - { offsetInCU: 0xBE, offset: 0xBE, size: 0x8, addend: 0x0, symName: _acquire_lock, symObjAddr: 0x20, symBinAddr: 0x100003E60, symSize: 0x30 }
+  - { offsetInCU: 0xE2, offset: 0xE2, size: 0x8, addend: 0x0, symName: _release_lock, symObjAddr: 0x50, symBinAddr: 0x100003E90, symSize: 0x20 }
+  - { offsetInCU: 0x106, offset: 0x106, size: 0x8, addend: 0x0, symName: _Tsum, symObjAddr: 0x70, symBinAddr: 0x100003EB0, symSize: 0x60 }
+  - { offsetInCU: 0x14A, offset: 0x14A, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0xD0, symBinAddr: 0x100003F10, symSize: 0x74 }
+...
