@@ -48,7 +48,7 @@ int main() {
     pthread_join(thread2, NULL);
 
 
-    printf("sum = %ld\n", x);
+    printf("x = %ld\n", x);
 
     return 0;
 }

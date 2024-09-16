@@ -5,17 +5,14 @@ Steps to compile and run this code:
     cd /path/to/your/code
 
 2.  Compile the code using gcc:
-    gcc ex_1_x++.c
+    gcc ex_4_x++_atomic.c
 
 3.  Run the executable:
     ./a.out
 
-4.  Observe the output of `x` when `N` is set to 100. The result will be correct since there are fewer increments.
-
-5.  Now, change the value of `N` to 1000000 (Line 6).
-
-6.  Compile and run the code again, and observe the output of `x`. 
-    You will likely notice incorrect results due to a race condition, where both threads are incrementing `x` simultaneously without proper synchronization, leading to errors in the final value of `x`.
+4.  Use `objdump` to inspect the generated assembly instructions:
+    objdump -d a.out
+    (This command disassembles the executable so you can observe the actual assembly instructions that the CPU will execute. You can see how the high-level code is broken down into assembly.)
 */
 
 
@@ -23,13 +20,13 @@ Steps to compile and run this code:
 #include <stdio.h>
 #include <stdlib.h>
 
-#define N 100000000
+#define N 1000000
 long x = 0;
 
 
 void *Tsum(void *arg) {
-    for (int i = 0; i < N; i++) {
-        x++;  
+    for (int i = 0; i < N; i++) { 
+        asm volatile("lock addq $1, %0": "+m"(x)); 
     }
     return NULL;
 }
