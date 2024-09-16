@@ -9,6 +9,10 @@ Steps to compile and run this code:
 
 3. Run the executable:
    ./a.out
+
+4. Open a new terminal and type the following to observe CPU usage:
+   top
+   (Observe the high CPU usage)
 */
 
 

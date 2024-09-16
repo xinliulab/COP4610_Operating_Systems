@@ -1,3 +1,28 @@
+/*
+Steps to compile and run this code:
+
+1.  Open the terminal and navigate to the folder containing this code:
+    cd /path/to/your/code
+
+2.  Compile the code using gcc:
+    gcc mandelbrot.c -Iinclue -lpthread -lm -O2
+    (`thread.h` is a wrapper around `pthread.h`, which is why we need to use `-Iinclude` to specify the directory for the header file, and `-lpthread` to link the pthread library.) 
+
+3.  Run the executable:
+    ./a.out 2
+   （This command runs the program using 2 threads.)
+
+4.  Open a new terminal and type the following to observe CPU usage:
+    top
+    (Observe the high CPU usage)
+
+5.  Now, run the executable with 4 threads to compare the execution speed:
+    ./a.out 4
+
+*/
+
+
+
 #include "thread.h"
 #include <math.h>
 
