@@ -10,9 +10,9 @@ Steps to compile and run this code:
 3.  Run the executable:
     ./a.out
 
-4. Use `objdump` to inspect the generated assembly instructions:
-   objdump -d a.out
-   (This command disassembles the executable so you can observe the actual assembly instructions that the CPU will execute. You can see how the high-level code is broken down into assembly.)
+4.  Use `objdump` to inspect the generated assembly instructions:
+    objdump -d a.out
+    (This command disassembles the executable so you can observe the actual assembly instructions that the CPU will execute. You can see how the high-level code is broken down into assembly.)
 
 
 5.  In this version, we replaced the `x++` with an assembly language instruction using the `lock` prefix to ensure atomicity. 
@@ -27,12 +27,12 @@ Steps to compile and run this code:
 #include <stdlib.h>
 
 #define N 1000000
-long sum = 0;
+long x = 0;
 
 
 void *Tsum(void *arg) {
     for (int i = 0; i < N; i++) { 
-        asm volatile("addq $1, %0": "+m"(sum)); 
+        asm volatile("addq $1, %0": "+m"(x)); 
     }
     return NULL;
 }
@@ -48,7 +48,7 @@ int main() {
     pthread_join(thread2, NULL);
 
 
-    printf("sum = %ld\n", sum);
+    printf("sum = %ld\n", x);
 
     return 0;
 }
