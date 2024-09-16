@@ -1,3 +1,18 @@
+/*
+Steps to compile and run this code:
+
+1. Open the terminal and navigate to the folder containing this code:
+   cd /path/to/your/code
+
+2. Compile the code using gcc:
+   gcc ex_1_pthread_basics.c
+
+3. Run the executable:
+   ./a.out
+*/
+
+
+
 #include <pthread.h>
 #include <stdio.h>
 #include <stdlib.h>
