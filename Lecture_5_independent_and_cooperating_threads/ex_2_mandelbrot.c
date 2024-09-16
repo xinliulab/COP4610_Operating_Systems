@@ -5,7 +5,7 @@ Steps to compile and run this code:
     cd /path/to/your/code
 
 2.  Compile the code using gcc:
-    gcc mandelbrot.c -Iinclue -lpthread -lm -O2
+    gcc ex_2_mandelbrot.c -Iinclue -lpthread -lm -O2
     (`thread.h` is a wrapper around `pthread.h`, which is why we need to use `-Iinclude` to specify the directory for the header file, and `-lpthread` to link the pthread library.) 
 
 3.  Run the executable:
