@@ -23,7 +23,7 @@ Steps to compile and run this code:
 #include <stdio.h>
 #include <stdlib.h>
 
-#define N 100
+#define N 100000000
 long x = 0;
 
 
