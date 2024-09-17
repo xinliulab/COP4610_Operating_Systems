@@ -20,7 +20,6 @@ void *Tsum(void *arg) {
         while (atomic_load_explicit(&flag[other], memory_order_acquire) &&
                atomic_load_explicit(&turn, memory_order_acquire) == other) {
             // Busy wait
-            // Optionally, you can add a sched_yield() here to yield CPU
         }
 
         // Critical Section

@@ -4,18 +4,19 @@ Steps to compile and run this code:
 1. Open the terminal and navigate to the folder containing this code:
    cd /path/to/your/code
 
-2. Compile the code using gcc:
+2. Compile the code using gcc (ensure to link the pthread library):
    gcc ex_1_pthread_basics.c
 
 3. Run the executable:
    ./a.out
 
-4. Open a new terminal and type the following to observe CPU usage:
-   top
-   (Observe the high CPU usage)
+4. The program will print characters from both threads. To capture and analyze all printed output, redirect it to a file:
+   ./a.out > output.txt
+
+5. To count the occurrences of each character in the output file using command-line tools, you can use:
+   cat output.txt | fold -w1 | sort | uniq -c
+   This command will display the count of each character printed.
 */
-
-
 
 #include <pthread.h>
 #include <stdio.h>

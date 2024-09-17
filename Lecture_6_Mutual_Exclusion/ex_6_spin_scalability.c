@@ -27,9 +27,10 @@ Steps to compile and run this code:
 
 #include "thread.h"
 #include "thread-sync.h"
+#include <stdatomic.h>
 
 #define N 10000000
-#define SPIN
+#define SPIN //Choose Spin lock or mutex lock
 
 #ifdef SPIN
 spinlock_t lock = SPIN_INIT();
@@ -37,7 +38,7 @@ spinlock_t lock = SPIN_INIT();
 mutex_t lock = MUTEX_INIT();
 #endif
 
-long n, sum = 0;
+long n, x = 0;
 
 void Tsum() {
   for (int i = 0; i < n; i++) {
@@ -46,7 +47,7 @@ void Tsum() {
 #else
     mutex_lock(&lock);
 #endif
-    sum++;
+    x++;
 #ifdef SPIN
     spin_unlock(&lock);
 #else
@@ -54,6 +55,12 @@ void Tsum() {
 #endif
   }
 }
+
+// void Tsum() {
+//   for (int i = 0; i < n; i++) {
+//     atomic_fetch_add(&x, 1);  // Use atomic increment instead of locking
+//   }
+// }
 
 int main(int argc, char *argv[]) {
   assert(argc == 2);
@@ -63,5 +70,9 @@ int main(int argc, char *argv[]) {
     create(Tsum);
   }
   join();
-  assert(sum == n * nthread);
+  assert(x == n * nthread);
+  
+  printf("x = %ld\n", x);  // Print the final value of x
+
+  return 0;
 }
