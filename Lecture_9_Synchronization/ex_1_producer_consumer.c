@@ -13,7 +13,7 @@
  *    ./a.out 32
  *
  * 5. To check the result using a pipe and an external Python script (checker.py):
- *    ./producer_consumer 2 | python3 pc_checker.py 2
+ *    ./a.out 2 | python3 pc_checker.py 2
  *    Here, '2' is the buffer size passed to both the C program and the Python checker.
  */
 
