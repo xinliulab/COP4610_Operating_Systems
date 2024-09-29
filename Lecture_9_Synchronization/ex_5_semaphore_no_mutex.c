@@ -26,7 +26,6 @@
 int n;
 sem_t empty_sem;  // Semaphore to track empty slots in the buffer
 sem_t full_sem;   // Semaphore to track full slots in the buffer
-pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;  // Mutex to protect the actual production/consumption
 
 // Define P and V operations
 #define P(sem) sem_wait(sem)
@@ -36,9 +35,7 @@ pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;  // Mutex to protect the actu
 void *Tproduce(void *arg) {
   while (1) {
     P(&empty_sem);            // Wait for an empty slot (P operation)
-    pthread_mutex_lock(&mutex);  // Lock the mutex to ensure synchronized access
-    printf("O");                 // Produce an item (just print 'O')
-    pthread_mutex_unlock(&mutex); // Unlock the mutex
+    printf("O");              // Produce an item (just print 'O')
     V(&full_sem);             // Signal that there is one more full slot (V operation)
   }
   return NULL;
@@ -48,9 +45,7 @@ void *Tproduce(void *arg) {
 void *Tconsume(void *arg) {
   while (1) {
     P(&full_sem);             // Wait for a full slot (P operation)
-    pthread_mutex_lock(&mutex);  // Lock the mutex to ensure synchronized access
-    printf("X");                 // Consume an item (just print 'X')
-    pthread_mutex_unlock(&mutex); // Unlock the mutex
+    printf("X");              // Consume an item (just print 'X')
     V(&empty_sem);            // Signal that there is one more empty slot (V operation)
   }
   return NULL;
