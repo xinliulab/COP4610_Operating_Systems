@@ -29,17 +29,14 @@ static int __init lx_init(void) {
   int i;
   int ret;
 
-  // 分配设备号范围
   ret = alloc_chrdev_region(&dev, 0, MAX_DEV, "nuke");
   if (ret < 0) {
     printk(KERN_ALERT "nuke: Failed to allocate char device region\n");
     return ret;
   }
 
-  // 获取主设备号
   dev_major = MAJOR(dev);
 
-  // 创建设备类
   lx_class = class_create(THIS_MODULE, "nuke");
   if (IS_ERR(lx_class)) {
     unregister_chrdev_region(MKDEV(dev_major, 0), MAX_DEV);
@@ -48,11 +45,9 @@ static int __init lx_init(void) {
   }
 
   for (i = 0; i < MAX_DEV; i++) {
-    // 初始化 cdev
     cdev_init(&devs[i].cdev, &fops);
     devs[i].cdev.owner = THIS_MODULE;
 
-    // 添加 cdev
     ret = cdev_add(&devs[i].cdev, MKDEV(dev_major, i), 1);
     if (ret) {
       printk(KERN_ALERT "nuke: Failed to add cdev for device %d\n", i);
@@ -65,7 +60,7 @@ static int __init lx_init(void) {
       return ret;
     }
 
-    // 创建设备节点
+
     device_create(lx_class, NULL, MKDEV(dev_major, i), NULL, "nuke%d", i);
   }
   return 0;    
@@ -108,7 +103,7 @@ static ssize_t lx_write(struct file *file, const char __user *buf, size_t count,
   if (copy_from_user(databuf, buf, count)) {
     return -EFAULT;
   }
-  if (strncmp(databuf, "\x01\x14\x05\x14", 4) == 0) {
+  if (strncmp(databuf, "COP4610", 4) == 0) {
     const char *EXPLODE[] = {
       "    ⠀⠀⠀⠀⠀⠀⠀⠀⣀⣠⣀⣀⠀⠀⣀⣤⣤⣄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀",
       "    ⠀⠀⠀⣀⣠⣤⣤⣾⣿⣿⣿⣿⣷⣾⣿⣿⣿⣿⣿⣶⣿⣿⣿⣶⣤⡀⠀⠀⠀⠀",
